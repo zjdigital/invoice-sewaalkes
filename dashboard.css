@@ -1,0 +1,206 @@
+/* PREMIUM DASHBOARD EFFECT */
+
+.card{
+transition:all .25s ease;
+}
+
+.card:hover{
+transform:translateY(-3px);
+box-shadow:
+0 15px 35px rgba(11,77,187,.12);
+}
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+padding:20px 25px;
+border-radius:18px;
+box-shadow:
+0 4px 18px rgba(0,0,0,.05);
+margin-bottom:25px;
+}
+
+.topbar h1{
+font-size:30px;
+font-weight:700;
+}
+
+/* SIDEBAR MENU */
+
+.sidebar nav a{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:500;
+}
+
+.sidebar nav a i{
+width:20px;
+text-align:center;
+}
+
+/* ACTIVE MENU */
+
+.sidebar nav a:first-child{
+background:rgba(255,255,255,.15);
+}
+
+/* TABLE */
+
+.invoice-table{
+overflow:hidden;
+border-radius:14px;
+}
+
+.invoice-table th{
+font-size:14px;
+font-weight:600;
+}
+
+.invoice-table td{
+background:white;
+}
+
+.invoice-table tr:hover td{
+background:#f8fbff;
+}
+
+/* ACTION BUTTON */
+
+.btn-delete{
+background:#ef4444;
+color:white;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.btn-delete:hover{
+background:#dc2626;
+}
+
+/* PROMPT PREVIEW */
+
+.preview-card{
+height:100%;
+}
+
+.preview-card textarea{
+background:#0f172a;
+color:#22c55e;
+border:none;
+padding:20px;
+border-radius:12px;
+font-family:Consolas,monospace;
+resize:none;
+}
+
+/* SUMMARY */
+
+.summary-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.summary-box h2{
+font-size:28px;
+}
+
+/* COST GRID */
+
+.cost-grid input{
+font-weight:600;
+}
+
+/* TABLE HEADER */
+
+.section-title{
+margin-bottom:15px;
+}
+
+/* BLUE HEADER */
+
+.section-title h3{
+margin:0;
+}
+
+/* PREMIUM SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#eef2f7;
+}
+
+::-webkit-scrollbar-thumb{
+background:#0b4dbb;
+border-radius:20px;
+}
+
+/* LIVE STATUS */
+
+.status-paid{
+background:#dcfce7;
+color:#15803d;
+padding:8px 15px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+}
+
+.status-dp{
+background:#fef9c3;
+color:#ca8a04;
+padding:8px 15px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+}
+
+.status-unpaid{
+background:#fee2e2;
+color:#dc2626;
+padding:8px 15px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+}
+
+/* RIGHT PANEL */
+
+.right-column{
+position:sticky;
+top:20px;
+height:fit-content;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.card{
+animation:fadeIn .4s ease;
+}
+
+/* PREMIUM BORDER */
+
+.card{
+border:1px solid #edf2f7;
+}
