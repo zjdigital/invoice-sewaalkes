@@ -1,206 +1,112 @@
-/* PREMIUM DASHBOARD EFFECT */
+/* ========================================
+   DASHBOARD.CSS
+   Enhanced Dashboard Effects
+   ======================================== */
 
-.card{
-transition:all .25s ease;
+/* Card delay animations */
+.left-column .card:nth-child(1) { animation-delay: 0.05s; }
+.left-column .card:nth-child(2) { animation-delay: 0.10s; }
+.left-column .card:nth-child(3) { animation-delay: 0.15s; }
+.right-column .card { animation-delay: 0.05s; }
+
+/* Table input widths */
+.invoice-table .item-name { min-width: 160px; }
+.invoice-table .item-qty  { max-width: 70px; text-align: center; }
+.invoice-table .item-price    { max-width: 110px; }
+.invoice-table .item-duration { max-width: 80px; text-align: center; }
+.invoice-table .item-subtotal {
+    max-width: 120px;
+    background: #f1f5ff;
+    color: var(--primary);
+    font-weight: 700;
+    cursor: default;
 }
 
-.card:hover{
-transform:translateY(-3px);
-box-shadow:
-0 15px 35px rgba(11,77,187,.12);
+/* Active nav highlight */
+.sidebar nav a.active {
+    font-weight: 700;
 }
 
-/* TOPBAR */
-
-.topbar{
-background:white;
-padding:20px 25px;
-border-radius:18px;
-box-shadow:
-0 4px 18px rgba(0,0,0,.05);
-margin-bottom:25px;
+/* Topbar generate btn pulse on click */
+.btn-generate:active {
+    animation: btnClick 0.15s ease;
 }
 
-.topbar h1{
-font-size:30px;
-font-weight:700;
+@keyframes btnClick {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(0.96); }
+    100% { transform: scale(1); }
 }
 
-/* SIDEBAR MENU */
-
-.sidebar nav a{
-display:flex;
-align-items:center;
-gap:12px;
-font-weight:500;
+/* Form input row gap fix */
+.form-grid-2 input,
+.form-grid-2 select {
+    margin-bottom: 0;
 }
 
-.sidebar nav a i{
-width:20px;
-text-align:center;
+/* Textarea in card */
+.card textarea {
+    margin-bottom: 0;
+    resize: vertical;
 }
 
-/* ACTIVE MENU */
-
-.sidebar nav a:first-child{
-background:rgba(255,255,255,.15);
+/* Cost grid inputs */
+.cost-grid .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-/* TABLE */
-
-.invoice-table{
-overflow:hidden;
-border-radius:14px;
+.cost-grid input {
+    font-weight: 600;
+    text-align: right;
 }
 
-.invoice-table th{
-font-size:14px;
-font-weight:600;
+/* Summary amount animation */
+#grandTotal {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.invoice-table td{
-background:white;
+/* Premium scrollbar for code preview */
+.preview-card textarea::-webkit-scrollbar {
+    width: 4px;
 }
 
-.invoice-table tr:hover td{
-background:#f8fbff;
+.preview-card textarea::-webkit-scrollbar-track {
+    background: #1e293b;
 }
 
-/* ACTION BUTTON */
-
-.btn-delete{
-background:#ef4444;
-color:white;
-border:none;
-padding:8px 12px;
-border-radius:8px;
-cursor:pointer;
+.preview-card textarea::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
 }
 
-.btn-delete:hover{
-background:#dc2626;
+/* Table row add animation */
+@keyframes rowFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-/* PROMPT PREVIEW */
-
-.preview-card{
-height:100%;
+#itemTableBody tr {
+    animation: rowFadeIn 0.25s ease;
 }
 
-.preview-card textarea{
-background:#0f172a;
-color:#22c55e;
-border:none;
-padding:20px;
-border-radius:12px;
-font-family:Consolas,monospace;
-resize:none;
-}
-
-/* SUMMARY */
-
-.summary-box{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.summary-box h2{
-font-size:28px;
-}
-
-/* COST GRID */
-
-.cost-grid input{
-font-weight:600;
-}
-
-/* TABLE HEADER */
-
-.section-title{
-margin-bottom:15px;
-}
-
-/* BLUE HEADER */
-
-.section-title h3{
-margin:0;
-}
-
-/* PREMIUM SCROLLBAR */
-
-::-webkit-scrollbar{
-width:10px;
-}
-
-::-webkit-scrollbar-track{
-background:#eef2f7;
-}
-
-::-webkit-scrollbar-thumb{
-background:#0b4dbb;
-border-radius:20px;
-}
-
-/* LIVE STATUS */
-
-.status-paid{
-background:#dcfce7;
-color:#15803d;
-padding:8px 15px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-}
-
-.status-dp{
-background:#fef9c3;
-color:#ca8a04;
-padding:8px 15px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-}
-
-.status-unpaid{
-background:#fee2e2;
-color:#dc2626;
-padding:8px 15px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-}
-
-/* RIGHT PANEL */
-
-.right-column{
-position:sticky;
-top:20px;
-height:fit-content;
-}
-
-/* ANIMATION */
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(10px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.card{
-animation:fadeIn .4s ease;
-}
-
-/* PREMIUM BORDER */
-
-.card{
-border:1px solid #edf2f7;
+/* Icon wrapper in card header */
+.card-header > i {
+    width: 34px;
+    height: 34px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary);
+    border-radius: 10px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
 }
