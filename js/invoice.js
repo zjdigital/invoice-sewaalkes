@@ -163,6 +163,7 @@ function bindRowEvents(row){
 // ======================================
 
 // Cari fungsi calculateRow di invoice.js dan ganti menjadi ini:
+// Cari fungsi calculateRow di invoice.js dan ganti menjadi ini:
 function calculateRow(row){
     const qty = Number(row.querySelector(".item-qty").value || 0);
     const price = Number(row.querySelector(".item-price").value || 0);
