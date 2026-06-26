@@ -3,231 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="description" content="Invoice AI Designer untuk sewa alat kesehatan - Sewaalkes.com. Buat invoice profesional dengan mudah dan cepat.">
 <title>Invoice AI Designer | Sewaalkes.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/dashboard.css">
 <link rel="stylesheet" href="css/mobile.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
 
 <div class="app">
 
     <!-- SIDEBAR -->
-
     <aside class="sidebar">
-
         <div class="logo">
-
+            <div class="logo-icon"><i class="fa fa-heartbeat"></i></div>
             <h2>Sewaalkes</h2>
             <span>Invoice AI Designer</span>
-
         </div>
 
         <nav>
-
-            <a href="#">
+            <a href="index.html" class="active" id="nav-dashboard">
                 <i class="fa fa-home"></i>
-                Dashboard
+                <span>Dashboard</span>
             </a>
-
-            <a href="#">
+            <a href="index.html" id="nav-new">
                 <i class="fa fa-file-invoice"></i>
-                New Invoice
+                <span>New Invoice</span>
             </a>
-
-            <a href="history.html">
-                <i class="fa fa-clock"></i>
-                History
+            <a href="history.html" id="nav-history">
+                <i class="fa fa-clock-rotate-left"></i>
+                <span>History</span>
             </a>
-
-            <a href="settings.html">
+            <a href="settings.html" id="nav-settings">
                 <i class="fa fa-gear"></i>
-                Settings
+                <span>Settings</span>
             </a>
-
         </nav>
 
+        <div class="sidebar-footer">
+            <p>Invoice AI Designer V1</p>
+            <p class="brand-tag">by Sewaalkes.com</p>
+        </div>
     </aside>
 
     <!-- CONTENT -->
-
     <main class="main">
 
         <div class="topbar">
-
-            <h1>Invoice AI Designer</h1>
-
-            <button id="generateBtn" class="btn-primary">
-
+            <div class="topbar-left">
+                <h1><i class="fa fa-wand-magic-sparkles" style="color:#3b82f6;font-size:24px;margin-right:10px;"></i>Invoice AI Designer</h1>
+                <p class="topbar-sub">Buat invoice alat kesehatan profesional dalam hitungan detik</p>
+            </div>
+            <button id="generateBtn" class="btn-generate">
                 <i class="fa fa-wand-magic-sparkles"></i>
                 Generate Prompt
-
             </button>
-
         </div>
 
         <!-- GRID -->
-
         <div class="dashboard-grid">
 
             <!-- KIRI -->
-
             <div class="left-column">
 
                 <!-- DATA PERUSAHAAN -->
-
                 <div class="card">
-
-                    <h3>Data Perusahaan</h3>
-
-                    <input id="companyName" type="text" value="Sewaalkes.com">
-
-                    <input id="website" type="text" value="www.sewaalkes.com">
-
-                    <input id="email" type="text" value="info@sewaalkes.com">
-
-                    <input id="phone" type="text" value="0812-1234-5678">
-
-                    <textarea id="address" rows="3">Jl. Kesehatan No.10 Bogor</textarea>
-
+                    <div class="card-header">
+                        <i class="fa fa-building"></i>
+                        <h3>Data Perusahaan</h3>
+                    </div>
+                    <div class="form-grid-2">
+                        <input id="companyName" type="text" placeholder="Nama Perusahaan" value="Sewaalkes.com">
+                        <input id="website" type="text" placeholder="Website" value="www.sewaalkes.com">
+                        <input id="email" type="email" placeholder="Email" value="info@sewaalkes.com">
+                        <input id="phone" type="text" placeholder="No. WhatsApp" value="0812-1234-5678">
+                    </div>
+                    <textarea id="address" rows="3" placeholder="Alamat Lengkap">Jl. Kesehatan No.10 Bogor</textarea>
                 </div>
 
                 <!-- INVOICE -->
-
                 <div class="card">
-
-                    <h3>Invoice</h3>
-
-                    <input id="invoiceNumber" placeholder="Nomor Invoice">
-
-                    <input id="invoiceDate" type="date">
-
-                    <input id="dueDate" type="date">
-
-                    <select id="paymentStatus">
-
-                        <option>LUNAS</option>
-                        <option>BELUM LUNAS</option>
-                        <option>DP</option>
-
-                    </select>
-
+                    <div class="card-header">
+                        <i class="fa fa-file-invoice"></i>
+                        <h3>Informasi Invoice</h3>
+                    </div>
+                    <div class="form-grid-2">
+                        <input id="invoiceNumber" placeholder="Nomor Invoice (e.g. INV-001)">
+                        <select id="paymentStatus">
+                            <option value="LUNAS">✅ LUNAS</option>
+                            <option value="BELUM LUNAS">❌ BELUM LUNAS</option>
+                            <option value="DP">⏳ DP / Uang Muka</option>
+                        </select>
+                        <div class="input-group">
+                            <label>Tanggal Invoice</label>
+                            <input id="invoiceDate" type="date">
+                        </div>
+                        <div class="input-group">
+                            <label>Jatuh Tempo</label>
+                            <input id="dueDate" type="date">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- PENYEWA -->
-
                 <div class="card">
-
-                    <h3>Data Penyewa</h3>
-
-                    <input id="customerName" placeholder="Nama Penyewa">
-
-                    <input id="customerPhone" placeholder="No HP">
-
-                    <input id="customerEmail" placeholder="Email">
-
-                    <textarea id="customerAddress" rows="3"></textarea>
-
+                    <div class="card-header">
+                        <i class="fa fa-user"></i>
+                        <h3>Data Penyewa</h3>
+                    </div>
+                    <div class="form-grid-2">
+                        <input id="customerName" placeholder="Nama Penyewa">
+                        <input id="customerPhone" placeholder="No. HP / WhatsApp">
+                        <input id="customerEmail" placeholder="Email" type="email">
+                    </div>
+                    <textarea id="customerAddress" rows="3" placeholder="Alamat Penyewa"></textarea>
                 </div>
 
             </div>
 
             <!-- KANAN -->
-
             <div class="right-column">
-
                 <div class="card preview-card">
-
-                    <h3>Live Prompt Preview</h3>
-
-                    <textarea id="promptOutput" rows="25"></textarea>
-
+                    <div class="card-header">
+                        <i class="fa fa-terminal"></i>
+                        <h3>Live Prompt Preview</h3>
+                        <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+                    </div>
+                    <textarea id="promptOutput" rows="28" placeholder="Prompt AI akan muncul di sini secara otomatis saat Anda mengisi form..."></textarea>
                     <button id="copyBtn" class="btn-success">
-
+                        <i class="fa fa-copy"></i>
                         Copy Prompt
-
                     </button>
-
                 </div>
-
             </div>
 
         </div>
 
         <!-- DETAIL SEWA -->
-
         <div class="card">
-
-            <div class="section-title">
-
-                <h3>Alat Yang Disewa</h3>
-
-                <button id="addItemBtn" class="btn-primary">
-
-                    + Tambah Alat
-
+            <div class="card-header section-title">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <i class="fa fa-stethoscope"></i>
+                    <h3>Alat Yang Disewa</h3>
+                </div>
+                <button id="addItemBtn" class="btn-add">
+                    <i class="fa fa-plus"></i> Tambah Alat
                 </button>
-
             </div>
 
-            <table class="invoice-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Nama Alat</th>
-                        <th>Qty</th>
-                        <th>Harga/Hari</th>
-                        <th>Durasi</th>
-                        <th>Subtotal</th>
-                        <th>Aksi</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="itemTableBody">
-
-                </tbody>
-
-            </table>
-
+            <div class="table-wrapper">
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Alat</th>
+                            <th>Qty</th>
+                            <th>Harga/Hari (Rp)</th>
+                            <th>Durasi (Hari)</th>
+                            <th>Subtotal (Rp)</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- BIAYA -->
-
         <div class="card">
-
-            <h3>Biaya</h3>
-
+            <div class="card-header">
+                <i class="fa fa-calculator"></i>
+                <h3>Biaya & Total</h3>
+            </div>
             <div class="cost-grid">
-
-                <input id="discount" placeholder="Diskon %">
-
-                <input id="deliveryFee" placeholder="Biaya Antar">
-
-                <input id="pickupFee" placeholder="Biaya Ambil">
-
-                <input id="downPayment" placeholder="DP">
-
+                <div class="input-group">
+                    <label><i class="fa fa-percent"></i> Diskon (Rp)</label>
+                    <input id="discount" type="number" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label><i class="fa fa-truck"></i> Biaya Antar (Rp)</label>
+                    <input id="deliveryFee" type="number" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label><i class="fa fa-box-open"></i> Biaya Ambil (Rp)</label>
+                    <input id="pickupFee" type="number" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label><i class="fa fa-money-bill-wave"></i> DP / Uang Muka (Rp)</label>
+                    <input id="downPayment" type="number" placeholder="0" min="0">
+                </div>
             </div>
 
             <div class="summary-box">
-
-                <h2 id="grandTotal">
-
-                    Grand Total : Rp 0
-
-                </h2>
-
+                <div class="summary-label">
+                    <i class="fa fa-receipt"></i>
+                    Grand Total
+                </div>
+                <h2 id="grandTotal">Grand Total : Rp 0</h2>
             </div>
-
         </div>
 
     </main>
