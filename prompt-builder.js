@@ -5,40 +5,45 @@
 
 function collectEquipmentItems() {
 
-    const rows =
-    document.querySelectorAll(
-    "#equipmentBody tr"
+    const rows = document.querySelectorAll(
+        "#itemTableBody tr"
     );
 
     let items = [];
 
-    rows.forEach((row,index)=>{
+    rows.forEach((row, index) => {
 
         const name =
-        row.querySelector(".equipment-name")
-        ?.value || "";
+            row.querySelector(".item-name")
+            ?.value || "";
 
         const qty =
-        row.querySelector(".qty")
-        ?.value || 0;
+            row.querySelector(".item-qty")
+            ?.value || 0;
 
         const price =
-        row.querySelector(".price")
-        ?.value || 0;
+            row.querySelector(".item-price")
+            ?.value || 0;
 
-        if(name){
+        const duration =
+            row.querySelector(".item-duration")
+            ?.value || 1;
 
+        const subtotal =
+            row.querySelector(".item-subtotal")
+            ?.value || 0;
+
+        if (name) {
             items.push(
-            `${index+1}. ${name}
-Qty: ${qty}
-Price Per Day: ${price}`
+                `${index + 1}. ${name} | Qty: ${qty} | Harga/Hari: Rp ${Number(price).toLocaleString("id-ID")} | Durasi: ${duration} hari | Subtotal: Rp ${subtotal}`
             );
-
         }
 
     });
 
-    return items.join("\n\n");
+    return items.length > 0
+        ? items.join("\n")
+        : "(Belum ada item)";
 
 }
 
@@ -46,232 +51,129 @@ Price Per Day: ${price}`
 // BUILD PROMPT
 // ==========================================
 
-function buildPrompt(){
+function buildPrompt() {
 
     const companyName =
-    document.getElementById("companyName").value;
+        document.getElementById("companyName")?.value || "-";
 
     const website =
-    document.getElementById("website").value;
+        document.getElementById("website")?.value || "-";
 
     const email =
-    document.getElementById("email").value;
+        document.getElementById("email")?.value || "-";
 
     const phone =
-    document.getElementById("phone").value;
+        document.getElementById("phone")?.value || "-";
 
-    const companyAddress =
-    document.getElementById("companyAddress").value;
+    const address =
+        document.getElementById("address")?.value || "-";
 
     const invoiceNumber =
-    document.getElementById("invoiceNumber").value;
+        document.getElementById("invoiceNumber")?.value || "-";
 
     const invoiceDate =
-    document.getElementById("invoiceDate").value;
+        document.getElementById("invoiceDate")?.value || "-";
 
     const dueDate =
-    document.getElementById("dueDate").value;
+        document.getElementById("dueDate")?.value || "-";
 
     const paymentStatus =
-    document.getElementById("paymentStatus").value;
+        document.getElementById("paymentStatus")?.value || "-";
 
     const customerName =
-    document.getElementById("customerName").value;
+        document.getElementById("customerName")?.value || "-";
 
     const customerPhone =
-    document.getElementById("customerPhone").value;
+        document.getElementById("customerPhone")?.value || "-";
 
     const customerEmail =
-    document.getElementById("customerEmail").value;
+        document.getElementById("customerEmail")?.value || "-";
 
     const customerAddress =
-    document.getElementById("customerAddress").value;
-
-    const startDate =
-    document.getElementById("startDate").value;
-
-    const endDate =
-    document.getElementById("endDate").value;
-
-    const durationDays =
-    document.getElementById("durationDays").value;
+        document.getElementById("customerAddress")?.value || "-";
 
     const discount =
-    document.getElementById("discount").value;
+        document.getElementById("discount")?.value || "0";
 
     const deliveryFee =
-    document.getElementById("deliveryFee").value;
+        document.getElementById("deliveryFee")?.value || "0";
 
     const pickupFee =
-    document.getElementById("pickupFee").value;
+        document.getElementById("pickupFee")?.value || "0";
 
-    const dpAmount =
-    document.getElementById("dpAmount").value;
-
-    const totalRental =
-    document.getElementById("totalRental").innerText;
+    const downPayment =
+        document.getElementById("downPayment")?.value || "0";
 
     const grandTotal =
-    document.getElementById("grandTotal").innerText;
+        document.getElementById("grandTotal")?.innerText || "Rp 0";
 
-    const templateStyle =
-    document.getElementById("templateStyle").value;
+    const items = collectEquipmentItems();
 
-    const items =
-    collectEquipmentItems();
+    return `CREATE A PREMIUM CORPORATE MEDICAL EQUIPMENT RENTAL INVOICE
 
-    return `
-CREATE A PREMIUM CORPORATE MEDICAL EQUIPMENT RENTAL INVOICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI PERUSAHAAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nama Perusahaan: ${companyName}
+Website: ${website}
+Email: ${email}
+Telepon: ${phone}
+Alamat: ${address}
 
-COMPANY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI INVOICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nomor Invoice: ${invoiceNumber}
+Tanggal Invoice: ${invoiceDate}
+Jatuh Tempo: ${dueDate}
+Status Pembayaran: ${paymentStatus}
 
-${companyName}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI PENYEWA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nama: ${customerName}
+No HP: ${customerPhone}
+Email: ${customerEmail}
+Alamat: ${customerAddress}
 
-Website:
-${website}
-
-Email:
-${email}
-
-Phone:
-${phone}
-
-Address:
-${companyAddress}
-
-
-INVOICE INFORMATION
-
-Invoice Number:
-${invoiceNumber}
-
-Invoice Date:
-${invoiceDate}
-
-Due Date:
-${dueDate}
-
-Payment Status:
-${paymentStatus}
-
-
-CUSTOMER INFORMATION
-
-Customer:
-${customerName}
-
-Phone:
-${customerPhone}
-
-Email:
-${customerEmail}
-
-Address:
-${customerAddress}
-
-
-RENTAL INFORMATION
-
-Rental Start:
-${startDate}
-
-Rental End:
-${endDate}
-
-Duration:
-${durationDays} Days
-
-
-RENTAL ITEMS
-
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DAFTAR ALAT YANG DISEWA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${items}
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RINGKASAN PEMBAYARAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Diskon: Rp ${Number(discount).toLocaleString("id-ID")}
+Biaya Antar: Rp ${Number(deliveryFee).toLocaleString("id-ID")}
+Biaya Ambil: Rp ${Number(pickupFee).toLocaleString("id-ID")}
+DP / Uang Muka: Rp ${Number(downPayment).toLocaleString("id-ID")}
+${grandTotal}
 
-PAYMENT SUMMARY
-
-Total Rental:
-Rp ${totalRental}
-
-Discount:
-Rp ${discount}
-
-Delivery Fee:
-Rp ${deliveryFee}
-
-Pickup Fee:
-Rp ${pickupFee}
-
-Down Payment:
-Rp ${dpAmount}
-
-Grand Total:
-Rp ${grandTotal}
-
-
-VISUAL STYLE
-
-Template:
-${templateStyle}
-
-Theme:
-Premium Corporate Blue Medical
-
-Canvas:
-A4 Portrait
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GAYA VISUAL INVOICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Template: Premium Corporate Medical Blue
+Tema: Premium Corporate Blue Medical
+Kanvas: A4 Portrait (21x29.7cm)
 
 Layout:
+- Header: Logo perusahaan kiri, Judul Invoice tengah, QR WhatsApp kanan
+- Kartu Informasi Pelanggan
+- Kartu Informasi Sewa
+- Tabel Peralatan: Grid Layout Profesional
+- Ringkasan Pembayaran: Grand Total disorot
+- Bagian Rekening Bank
+- Bagian Pembayaran QRIS
+- Area Tanda Tangan (Pelanggan + Admin + Stempel Perusahaan)
+- Footer: Professional • Aman • Terpercaya
 
-Header:
-Company logo on left
-Invoice title in center
-WhatsApp QR on right
-
-Customer Information Card
-
-Rental Information Card
-
-Equipment Table:
-Professional Grid Layout
-
-Payment Summary:
-Highlighted Grand Total
-
-Bank Account Section
-
-QRIS Payment Section
-
-Signature Area
-
-Customer Signature
-
-Admin Signature
-
-Company Stamp
-
-Footer:
-Professional • Aman • Terpercaya
-
-
-DESIGN STYLE
-
-Photorealistic
-
-Ultra Detailed
-
-Medical Corporate Branding
-
-Premium Invoice Design
-
-Modern Blue Gradient
-
-Clean White Background
-
-Professional Typography
-
-Print Ready
-
-A4 Portrait
-
-High Quality Business Document
-`;
+Gaya Desain:
+- Photorealistic, Ultra Detail
+- Medical Corporate Branding
+- Premium Invoice Design
+- Gradien Biru Modern
+- Latar Belakang Putih Bersih
+- Tipografi Profesional
+- Print Ready, Kualitas Tinggi`;
 }

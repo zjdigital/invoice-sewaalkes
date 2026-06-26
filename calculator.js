@@ -1,167 +1,89 @@
 // ======================================
 // CALCULATOR.JS
 // Invoice AI Designer
+// Hitung subtotal dan grand total
 // ======================================
-
-function calculateDuration() {
-
-    const startDate =
-    document.getElementById("startDate").value;
-
-    const endDate =
-    document.getElementById("endDate").value;
-
-    if (!startDate || !endDate) return;
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    const diff =
-    Math.ceil(
-    (end - start) /
-    (1000 * 60 * 60 * 24)
-    ) + 1;
-
-    document.getElementById("durationDays").value =
-    diff > 0 ? diff : 0;
-
-    calculateTotals();
-}
 
 // ======================================
 // HITUNG SUBTOTAL BARIS
 // ======================================
 
-function calculateRow(row){
+function calculateRow(row) {
 
-    const qty =
-    parseFloat(
-    row.querySelector(".qty")?.value || 0
+    const qty = Number(
+        row.querySelector(".item-qty")?.value || 0
     );
 
-    const price =
-    parseFloat(
-    row.querySelector(".price")?.value || 0
+    const price = Number(
+        row.querySelector(".item-price")?.value || 0
     );
 
-    const duration =
-    parseFloat(
-    document.getElementById("durationDays").value || 0
+    const duration = Number(
+        row.querySelector(".item-duration")?.value || 0
     );
 
-    const subtotal =
-    qty * price * duration;
+    const subtotal = qty * price * duration;
 
-    row.querySelector(".subtotal").value =
-    subtotal.toLocaleString("id-ID");
+    const subtotalInput = row.querySelector(".item-subtotal");
+    if (subtotalInput) {
+        subtotalInput.value = subtotal.toLocaleString("id-ID");
+    }
 
     row.dataset.subtotal = subtotal;
 
-    calculateTotals();
+    calculateGrandTotal();
 }
 
 // ======================================
-// HITUNG GRAND TOTAL
+// GRAND TOTAL
 // ======================================
 
-function calculateTotals(){
+function calculateGrandTotal() {
 
     let total = 0;
 
-    document
-    .querySelectorAll("#equipmentBody tr")
-    .forEach(row => {
-
-        total +=
-        parseFloat(
-        row.dataset.subtotal || 0
-        );
-
+    document.querySelectorAll("#itemTableBody tr").forEach(row => {
+        total += Number(row.dataset.subtotal || 0);
     });
 
-    document.getElementById("totalRental").innerText =
-    total.toLocaleString("id-ID");
-
-    const discount =
-    parseFloat(
-    document.getElementById("discount").value || 0
+    const discount = Number(
+        document.getElementById("discount")?.value || 0
     );
 
-    const delivery =
-    parseFloat(
-    document.getElementById("deliveryFee").value || 0
+    const delivery = Number(
+        document.getElementById("deliveryFee")?.value || 0
     );
 
-    const pickup =
-    parseFloat(
-    document.getElementById("pickupFee").value || 0
+    const pickup = Number(
+        document.getElementById("pickupFee")?.value || 0
     );
 
-    const grandTotal =
-    total
-    - discount
-    + delivery
-    + pickup;
+    const grandTotal = total - discount + delivery + pickup;
 
-    document.getElementById("grandTotal").innerText =
-    grandTotal.toLocaleString("id-ID");
+    const grandTotalEl = document.getElementById("grandTotal");
+    if (grandTotalEl) {
+        grandTotalEl.innerHTML =
+            "Grand Total : Rp " + grandTotal.toLocaleString("id-ID");
+    }
 
+    // Also update live prompt
+    if (typeof buildPrompt === "function") {
+        const output = document.getElementById("promptOutput");
+        if (output) output.value = buildPrompt();
+    }
 }
 
 // ======================================
-// EVENT LISTENER
+// EVENT LISTENER — Biaya fields
 // ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const startDate =
-    document.getElementById("startDate");
-
-    const endDate =
-    document.getElementById("endDate");
-
-    if(startDate){
-        startDate.addEventListener(
-        "change",
-        calculateDuration
-        );
-    }
-
-    if(endDate){
-        endDate.addEventListener(
-        "change",
-        calculateDuration
-        );
-    }
-
-    const discount =
-    document.getElementById("discount");
-
-    const delivery =
-    document.getElementById("deliveryFee");
-
-    const pickup =
-    document.getElementById("pickupFee");
-
-    if(discount){
-        discount.addEventListener(
-        "input",
-        calculateTotals
-        );
-    }
-
-    if(delivery){
-        delivery.addEventListener(
-        "input",
-        calculateTotals
-        );
-    }
-
-    if(pickup){
-        pickup.addEventListener(
-        "input",
-        calculateTotals
-        );
-    }
+    ["discount", "deliveryFee", "pickupFee", "downPayment"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener("input", calculateGrandTotal);
+        }
+    });
 
 });
