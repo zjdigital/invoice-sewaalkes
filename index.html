@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Invoice AI Designer | Sewaalkes.com</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/mobile.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h2>Sewaalkes</h2>
+            <span>Invoice AI Designer</span>
+
+        </div>
+
+        <nav>
+
+            <a href="#">
+                <i class="fa fa-home"></i>
+                Dashboard
+            </a>
+
+            <a href="#">
+                <i class="fa fa-file-invoice"></i>
+                New Invoice
+            </a>
+
+            <a href="history.html">
+                <i class="fa fa-clock"></i>
+                History
+            </a>
+
+            <a href="settings.html">
+                <i class="fa fa-gear"></i>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <h1>Invoice AI Designer</h1>
+
+            <button id="generateBtn" class="btn-primary">
+
+                <i class="fa fa-wand-magic-sparkles"></i>
+                Generate Prompt
+
+            </button>
+
+        </div>
+
+        <!-- GRID -->
+
+        <div class="dashboard-grid">
+
+            <!-- KIRI -->
+
+            <div class="left-column">
+
+                <!-- DATA PERUSAHAAN -->
+
+                <div class="card">
+
+                    <h3>Data Perusahaan</h3>
+
+                    <input id="companyName" type="text" value="Sewaalkes.com">
+
+                    <input id="website" type="text" value="www.sewaalkes.com">
+
+                    <input id="email" type="text" value="info@sewaalkes.com">
+
+                    <input id="phone" type="text" value="0812-1234-5678">
+
+                    <textarea id="address" rows="3">Jl. Kesehatan No.10 Bogor</textarea>
+
+                </div>
+
+                <!-- INVOICE -->
+
+                <div class="card">
+
+                    <h3>Invoice</h3>
+
+                    <input id="invoiceNumber" placeholder="Nomor Invoice">
+
+                    <input id="invoiceDate" type="date">
+
+                    <input id="dueDate" type="date">
+
+                    <select id="paymentStatus">
+
+                        <option>LUNAS</option>
+                        <option>BELUM LUNAS</option>
+                        <option>DP</option>
+
+                    </select>
+
+                </div>
+
+                <!-- PENYEWA -->
+
+                <div class="card">
+
+                    <h3>Data Penyewa</h3>
+
+                    <input id="customerName" placeholder="Nama Penyewa">
+
+                    <input id="customerPhone" placeholder="No HP">
+
+                    <input id="customerEmail" placeholder="Email">
+
+                    <textarea id="customerAddress" rows="3"></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- KANAN -->
+
+            <div class="right-column">
+
+                <div class="card preview-card">
+
+                    <h3>Live Prompt Preview</h3>
+
+                    <textarea id="promptOutput" rows="25"></textarea>
+
+                    <button id="copyBtn" class="btn-success">
+
+                        Copy Prompt
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DETAIL SEWA -->
+
+        <div class="card">
+
+            <div class="section-title">
+
+                <h3>Alat Yang Disewa</h3>
+
+                <button id="addItemBtn" class="btn-primary">
+
+                    + Tambah Alat
+
+                </button>
+
+            </div>
+
+            <table class="invoice-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Nama Alat</th>
+                        <th>Qty</th>
+                        <th>Harga/Hari</th>
+                        <th>Durasi</th>
+                        <th>Subtotal</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="itemTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- BIAYA -->
+
+        <div class="card">
+
+            <h3>Biaya</h3>
+
+            <div class="cost-grid">
+
+                <input id="discount" placeholder="Diskon %">
+
+                <input id="deliveryFee" placeholder="Biaya Antar">
+
+                <input id="pickupFee" placeholder="Biaya Ambil">
+
+                <input id="downPayment" placeholder="DP">
+
+            </div>
+
+            <div class="summary-box">
+
+                <h2 id="grandTotal">
+
+                    Grand Total : Rp 0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/calculator.js"></script>
+<script src="js/invoice.js"></script>
+<script src="js/prompt-builder.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
