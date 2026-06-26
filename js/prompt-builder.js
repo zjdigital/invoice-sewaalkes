@@ -51,65 +51,52 @@ function collectEquipmentItems() {
 // BUILD PROMPT
 // ==========================================
 
-function buildPrompt() {
+function buildPrompt(){
+    // ... (ambil variabel seperti biasa) ...
 
-    const companyName =
-        document.getElementById("companyName")?.value || "-";
+    return `
+CREATE A PROFESSIONAL MEDICAL EQUIPMENT RENTAL INVOICE - REVISED LAYOUT
 
-    const website =
-        document.getElementById("website")?.value || "-";
+[HEADER SECTION - ALIGNED TOP]
+- TOP LEFT: Official Logo of "Sewaalkes.com" (Green medical cross icon with blue text).
+- TOP CENTER: Text "INVOICE SEWA ALAT KESEHATAN" and sub-text "TERIMA KASIH ATAS KEPERCAYAAN ANDA" must be aligned horizontally with the logo.
+- TOP RIGHT: WhatsApp QR Code with "HUBUNGI KAMI VIA WHATSAPP" label.
 
-    const email =
-        document.getElementById("email")?.value || "-";
+[COMPANY INFO]
+${companyName} | ${website} | ${email} | ${phone}
+Address: ${companyAddress}
 
-    const phone =
-        document.getElementById("phone")?.value || "-";
+[INVOICE & CUSTOMER INFO]
+Invoice: ${invoiceNumber} | Date: ${invoiceDate} | Due: ${dueDate} | Status: ${paymentStatus}
+Customer: ${customerName} | Phone: ${customerPhone} | Email: ${customerEmail} | Address: ${customerAddress}
 
-    const address =
-        document.getElementById("address")?.value || "-";
+[RENTAL ITEMS TABLE]
+Format: NO | NAMA ALAT | QTY | HARGA | DURASI | SUBTOTAL
+Note: Subtotal is Qty multiplied by Harga only.
+Items:
+${collectEquipmentItems()}
 
-    const invoiceNumber =
-        document.getElementById("invoiceNumber")?.value || "-";
+[PAYMENT SUMMARY]
+Grand Total: ${grandTotal}
+Show Discount, Delivery, Pickup, and DP fields.
 
-    const invoiceDate =
-        document.getElementById("invoiceDate")?.value || "-";
+[ADDITIONAL ASSETS - PERMANENT]
+- QRIS SECTION: Display a permanent "QRIS Standar Pembayaran Nasional" barcode box on the right side of payment summary.
+- BANK SECTION: Display BCA, Mandiri, and BRI logos with account details.
+- NOTES: Include 2 check-marked terms of service.
 
-    const dueDate =
-        document.getElementById("dueDate")?.value || "-";
+[SIGNATURE AREA - REVISED]
+- LEFT SIDE: "Penyewa" area - LEAVE BLANK/EMPTY (Only show name "${customerName}" in brackets below, no signature graphic).
+- CENTER SIDE: "Admin" area - Include a professional handwritten signature with "Admin" label.
+- RIGHT SIDE: "Stempel Perusahaan" - Show a green circular company stamp of Sewaalkes.
 
-    const paymentStatus =
-        document.getElementById("paymentStatus")?.value || "-";
-
-    const customerName =
-        document.getElementById("customerName")?.value || "-";
-
-    const customerPhone =
-        document.getElementById("customerPhone")?.value || "-";
-
-    const customerEmail =
-        document.getElementById("customerEmail")?.value || "-";
-
-    const customerAddress =
-        document.getElementById("customerAddress")?.value || "-";
-
-    const discount =
-        document.getElementById("discount")?.value || "0";
-
-    const deliveryFee =
-        document.getElementById("deliveryFee")?.value || "0";
-
-    const pickupFee =
-        document.getElementById("pickupFee")?.value || "0";
-
-    const downPayment =
-        document.getElementById("downPayment")?.value || "0";
-
-    const grandTotal =
-        document.getElementById("grandTotal")?.innerText || "Rp 0";
-
-    const items = collectEquipmentItems();
-
-    return `CREATE A PREMIUM CORPORATE MEDICAL EQUIPMENT RENTAL INVOICE
+[VISUAL STYLE]
+- Theme: Premium Corporate Medical.
+- Color: Deep Blue and Medical Green.
+- Layout: A4 Portrait, clean grid, professional typography.
+- Footer: Icons for PROFESSIONAL, AMAN, TERPERCAYA.
+`;
+}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 INFORMASI PERUSAHAAN
