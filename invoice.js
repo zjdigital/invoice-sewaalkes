@@ -162,39 +162,18 @@ function bindRowEvents(row){
 // HITUNG BARIS
 // ======================================
 
+// Cari fungsi calculateRow di invoice.js dan ganti menjadi ini:
 function calculateRow(row){
+    const qty = Number(row.querySelector(".item-qty").value || 0);
+    const price = Number(row.querySelector(".item-price").value || 0);
+    
+    // Durasi tetap diambil tapi tidak dikalikan ke subtotal (sesuai poin 2)
+    const subtotal = qty * price; 
 
-    const qty =
-    Number(
-        row.querySelector(".item-qty")
-        .value || 0
-    );
-
-    const price =
-    Number(
-        row.querySelector(".item-price")
-        .value || 0
-    );
-
-    const duration =
-    Number(
-        row.querySelector(".item-duration")
-        .value || 0
-    );
-
-    const subtotal =
-    qty * price * duration;
-
-    row.querySelector(
-    ".item-subtotal"
-    ).value =
-    formatRupiah(subtotal);
-
-    row.dataset.subtotal =
-    subtotal;
+    row.querySelector(".item-subtotal").value = formatRupiah(subtotal);
+    row.dataset.subtotal = subtotal;
 
     calculateGrandTotal();
-
 }
 
 // ======================================
