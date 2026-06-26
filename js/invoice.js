@@ -181,56 +181,40 @@ function calculateRow(row){
 // GRAND TOTAL
 // ======================================
 
+// ======================================
+// GRAND TOTAL (REVISI RUMUS)
+// ======================================
 function calculateGrandTotal(){
+    let totalRental = 0;
 
-    let total = 0;
-
-    document
-    .querySelectorAll(
-    "#itemTableBody tr"
-    )
-    .forEach(row => {
-
-        total += Number(
-            row.dataset.subtotal || 0
-        );
-
+    // Ambil semua subtotal dari tabel alat
+    document.querySelectorAll("#itemTableBody tr").forEach(row => {
+        totalRental += Number(row.dataset.subtotal || 0);
     });
 
-    const discount =
-    Number(
-        document.getElementById(
-        "discount"
-        )?.value || 0
-    );
+    // Ambil nilai biaya-biaya lainnya
+    const discount = Number(document.getElementById("discount")?.value || 0);
+    const delivery = Number(document.getElementById("deliveryFee")?.value || 0);
+    const pickup = Number(document.getElementById("pickupFee")?.value || 0);
+    const dp = Number(document.getElementById("downPayment")?.value || 0); // Ambil nilai DP
 
-    const delivery =
-    Number(
-        document.getElementById(
-        "deliveryFee"
-        )?.value || 0
-    );
+    // RUMUS BARU: (Subtotal - Diskon + Antar + Ambil) - DP
+    const grandTotalValue = (totalRental - discount + delivery + pickup) - dp;
 
-    const pickup =
-    Number(
-        document.getElementById(
-        "pickupFee"
-        )?.value || 0
-    );
-
-    const grandTotal =
-    total
-    - discount
-    + delivery
-    + pickup;
-
-    document.getElementById(
-    "grandTotal"
-    ).innerHTML =
-    "Grand Total : Rp " +
-    formatRupiah(grandTotal);
-
+    // Tampilkan hasil ke layar
+    const displayElement = document.getElementById("grandTotal");
+    if (displayElement) {
+        displayElement.innerHTML = "TOTAL AKHIR : Rp " + formatRupiah(grandTotalValue);
+    }
 }
+
+// Pastikan angka otomatis update saat input DP diketik
+document.addEventListener("input", (e) => {
+    const targets = ["discount", "deliveryFee", "pickupFee", "downPayment"];
+    if (targets.includes(e.target.id)) {
+        calculateGrandTotal();
+    }
+});
 
 // ======================================
 // AUTO UPDATE BIAYA
