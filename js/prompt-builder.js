@@ -1,95 +1,221 @@
 // ==========================================
-// PROMPT BUILDER - REVISED V2
+// PROMPT BUILDER
+// Invoice AI Designer V1
 // ==========================================
 
 function collectEquipmentItems() {
-    const rows = document.querySelectorAll("#itemTableBody tr");
+
+    const rows = document.querySelectorAll(
+        "#itemTableBody tr"
+    );
+
     let items = [];
 
     rows.forEach((row, index) => {
-        const name = row.querySelector(".item-name")?.value || "";
-        const qty = row.querySelector(".item-qty")?.value || 0;
-        const price = row.querySelector(".item-price")?.value || 0;
-        const duration = row.querySelector(".item-duration")?.value || 1;
-        
-        // Subtotal di sini hanya Qty x Harga (Sesuai Revisi Poin 2)
-        const subtotalValue = Number(qty) * Number(price);
-        const subtotalText = subtotalValue.toLocaleString("id-ID");
+
+        const name =
+            row.querySelector(".item-name")
+            ?.value || "";
+
+        const qty =
+            row.querySelector(".item-qty")
+            ?.value || 0;
+
+        const price =
+            row.querySelector(".item-price")
+            ?.value || 0;
+
+        const subtotal =
+            row.querySelector(".item-subtotal")
+            ?.value || 0;
 
         if (name) {
-            // "Harga/Hari" diubah jadi "Harga" saja (Sesuai Revisi Poin 1)
             items.push(
-                `${index + 1}. ${name} | Qty: ${qty} | Harga: Rp ${Number(price).toLocaleString("id-ID")} | Durasi: ${duration} hari | Subtotal: Rp ${subtotalText}`
+                `${index + 1}. ${name} | Qty: ${qty} | Harga: Rp ${Number(price).toLocaleString("id-ID")} | Subtotal: Rp ${Number(qty * price).toLocaleString("id-ID")}`
             );
         }
+
     });
 
-    return items.length > 0 ? items.join("\n") : "(Belum ada item)";
+    return items.length > 0
+        ? items.join("\n")
+        : "(Belum ada item)";
+
 }
 
+// ==========================================
+// BUILD PROMPT
+// ==========================================
+
 function buildPrompt() {
-    // MENGAMBIL DATA DARI INPUT (WAJIB ADA AGAR TIDAK ERROR)
-    const companyName = document.getElementById("companyName")?.value || "";
-    const website = document.getElementById("website")?.value || "";
-    const email = document.getElementById("email")?.value || "";
-    const phone = document.getElementById("phone")?.value || "";
-    const address = document.getElementById("address")?.value || "";
-    const invoiceNumber = document.getElementById("invoiceNumber")?.value || "";
-    const invoiceDate = document.getElementById("invoiceDate")?.value || "";
-    const dueDate = document.getElementById("dueDate")?.value || "";
-    const paymentStatus = document.getElementById("paymentStatus")?.value || "";
-    const customerName = document.getElementById("customerName")?.value || "";
-    const customerPhone = document.getElementById("customerPhone")?.value || "";
-    const customerEmail = document.getElementById("customerEmail")?.value || "";
-    const customerAddress = document.getElementById("customerAddress")?.value || "";
-    
-    const discount = document.getElementById("discount")?.value || 0;
-    const deliveryFee = document.getElementById("deliveryFee")?.value || 0;
-    const pickupFee = document.getElementById("pickupFee")?.value || 0;
-    const downPayment = document.getElementById("downPayment")?.value || 0;
-    const grandTotal = document.getElementById("grandTotal")?.innerText || "Rp 0";
+
+    const companyName =
+        document.getElementById("companyName")?.value || "-";
+
+    const website =
+        document.getElementById("website")?.value || "-";
+
+    const email =
+        document.getElementById("email")?.value || "-";
+
+    const phone =
+        document.getElementById("phone")?.value || "-";
+
+    const address =
+        document.getElementById("address")?.value || "-";
+
+    const invoiceNumber =
+        document.getElementById("invoiceNumber")?.value || "-";
+
+    const invoiceDate =
+        document.getElementById("invoiceDate")?.value || "-";
+
+    const dueDate =
+        document.getElementById("dueDate")?.value || "-";
+
+    const paymentStatus =
+        document.getElementById("paymentStatus")?.value || "-";
+
+    const customerName =
+        document.getElementById("customerName")?.value || "-";
+
+    const customerPhone =
+        document.getElementById("customerPhone")?.value || "-";
+
+    const customerEmail =
+        document.getElementById("customerEmail")?.value || "-";
+
+    const customerAddress =
+        document.getElementById("customerAddress")?.value || "-";
+
+    const discount =
+        document.getElementById("discount")?.value || "0";
+
+    const deliveryFee =
+        document.getElementById("deliveryFee")?.value || "0";
+
+    const pickupFee =
+        document.getElementById("pickupFee")?.value || "0";
+
+    const downPayment =
+        document.getElementById("downPayment")?.value || "0";
+
+    const grandTotal =
+        document.getElementById("grandTotal")?.innerText || "Rp 0";
+
+    const bankBca =
+        document.getElementById("bankBca")?.value || "-";
+
+    const bankBcaName =
+        document.getElementById("bankBcaName")?.value || "-";
+
+    const bankBsi =
+        document.getElementById("bankBsi")?.value || "-";
+
+    const bankBsiName =
+        document.getElementById("bankBsiName")?.value || "-";
+
+    const adminName =
+        document.getElementById("adminName")?.value || "-";
 
     const items = collectEquipmentItems();
 
-    // RETURN HANYA BOLEH SATU KALI DI AKHIR FUNGSI
-    return `
-CREATE A PROFESSIONAL MEDICAL EQUIPMENT RENTAL INVOICE - FINAL REVISED
+    return `CREATE A PREMIUM CORPORATE MEDICAL EQUIPMENT RENTAL INVOICE
 
-[HEADER SECTION - ALIGNED TOP]
-- TOP LEFT: Official Logo of "Sewaalkes.com".
-- TOP CENTER: Text "INVOICE SEWA ALAT KESEHATAN" and sub-text "TERIMA KASIH ATAS KEPERCAYAAN ANDA" must be aligned horizontally (TOP ALIGNED) with the logo.
-- TOP RIGHT: WhatsApp QR Code with "HUBUNGI KAMI VIA WHATSAPP" label.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI PERUSAHAAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nama Perusahaan: ${companyName}
+Website: ${website}
+Email: ${email}
+Telepon: ${phone}
+Alamat: ${address}
 
-[INFORMATION DATA]
-COMPANY: ${companyName} | ${website} | ${email} | ${phone} | ${address}
-INVOICE: ${invoiceNumber} | Date: ${invoiceDate} | Due: ${dueDate} | Status: ${paymentStatus}
-CUSTOMER: ${customerName} | ${customerPhone} | ${customerEmail} | ${customerAddress}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI INVOICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nomor Invoice: ${invoiceNumber}
+Tanggal Invoice: ${invoiceDate}
+Jatuh Tempo: ${dueDate}
+Status Pembayaran: ${paymentStatus}
 
-[RENTAL ITEMS TABLE]
-Format: NO | NAMA ALAT | QTY | HARGA | DURASI | SUBTOTAL
-Items List:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFORMASI PENYEWA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Nama: ${customerName}
+No HP: ${customerPhone}
+Email: ${customerEmail}
+Alamat: ${customerAddress}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DAFTAR ALAT YANG DISEWA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${items}
 
-[PAYMENT SUMMARY]
-Diskon: Rp ${Number(discount).toLocaleString("id-ID")}
-Biaya Antar: Rp ${Number(deliveryFee).toLocaleString("id-ID")}
-Biaya Ambil: Rp ${Number(pickupFee).toLocaleString("id-ID")}
-DP / Uang Muka: Rp ${Number(downPayment).toLocaleString("id-ID")}
-TOTAL AKHIR: ${grandTotal}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RINGKASAN PEMBAYARAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Sewa Alat : Rp ${Number(document.getElementById("totalSewaRow")?.innerText?.replace(/[^0-9]/g,"") || 0).toLocaleString("id-ID")}
+Diskon          : Rp ${Number(discount).toLocaleString("id-ID")}
+Biaya Antar     : Rp ${Number(deliveryFee).toLocaleString("id-ID")}
+Biaya Ambil     : Rp ${Number(pickupFee).toLocaleString("id-ID")}
+DP / Uang Muka  : Rp ${Number(downPayment).toLocaleString("id-ID")}
+${grandTotal}
 
-[ADDITIONAL ASSETS - PERMANENT]
-- QRIS: Display permanent QRIS barcode box on the right.
-- BANK: Display BCA, Mandiri, and BRI logos with account details.
-- NOTES: 2 check-marked terms of service.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GAYA VISUAL INVOICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Template: Premium Corporate Medical Blue
+Tema: Premium Corporate Blue Medical
+Kanvas: A4 Portrait (21x29.7cm)
 
-[SIGNATURE AREA - REVISED]
-- LEFT: "Penyewa" area - LEAVE BLANK/EMPTY SIGNATURE (Only show name "${customerName}" in brackets).
-- CENTER: "Admin" area - Include handwritten signature "Juli" with "Admin" label.
-- RIGHT: "Stempel Perusahaan" - Green circular company stamp of Sewaalkes.
+Layout Header (PENTING - Sejajar Horizontal):
+- Area KIRI: Logo perusahaan + nama perusahaan + kontak (website, email, telepon, alamat)
+- Area TENGAH: Teks "INVOICE" besar bold + teks "SEWA ALAT KESEHATAN" + teks "TERIMA KASIH ATAS KEPERCAYAAN ANDA" — semua teks ini HARUS sejajar secara vertikal dengan logo di kiri, bukan di bawahnya
+- Area KANAN: QR Code WhatsApp + tombol "HUBUNGI KAMI VIA WHATSAPP" + teks "SCAN QR CODE"
+- Header dirancang agar logo, teks INVOICE, dan QR berada pada baris yang sama (vertikal center aligned)
 
-[VISUAL STYLE]
-- Theme: Premium Corporate Medical Blue & Green.
-- Layout: A4 Portrait, Photorealistic, Ultra Detailed, Print Ready.
-- Footer: Icons for PROFESSIONAL, AMAN, TERPERCAYA.
-`;
+Tabel Daftar Alat Yang Disewa:
+- Kolom: NO | NAMA ALAT | QTY | HARGA | SUBTOTAL
+- PENTING: Tidak ada kolom DURASI / HARGA PER HARI
+- Header kolom keempat adalah "HARGA" (bukan "HARGA/HARI")
+- SUBTOTAL = QTY × HARGA (durasi TIDAK mempengaruhi subtotal)
+
+Layout Halaman:
+- Informasi Invoice dan Informasi Penyewa (2 kolom)
+- Tabel Daftar Alat Yang Disewa:
+  * Kolom: NO | NAMA ALAT | QTY | HARGA | SUBTOTAL
+  * Setiap baris alat disertai foto/gambar alat di kolom Nama Alat
+  * Baris terakhir tabel = baris TOTAL SEWA (background biru muda, teks bold biru):
+    teks "TOTAL SEWA" rata kanan | nilai total semua subtotal
+- Ringkasan Pembayaran (SATU KOLOM LEBAR PENUH):
+  Format tabel ringkasan:
+    Total Sewa Alat  :  Rp xxx
+    Diskon           :  Rp xxx
+    Biaya Antar      :  Rp xxx
+    Biaya Ambil      :  Rp xxx
+    DP / Uang Muka   :  Rp xxx
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    TOTAL AKHIR      :  Rp xxx  (besar, bold, warna biru tua)
+  Rumus: TOTAL AKHIR = Total Sewa - Diskon + Biaya Antar + Biaya Ambil - DP
+  PENTING: TIDAK ADA kolom Pembayaran QRIS di samping — ringkasan mengambil lebar penuh
+- Rekening Bank (BCA & BSI) — lebar penuh:
+  * BCA: ${bankBca} a.n ${bankBcaName}
+  * BSI: ${bankBsi} a.n ${bankBsiName}
+- Catatan / Notes
+- Area Tanda Tangan:
+  PENTING: Hanya 2 elemen tanda tangan:
+  1. Kolom ADMIN (tengah) — dengan garis tanda tangan dan nama admin: ${adminName}
+  2. Kolom STEMPEL PERUSAHAAN (kanan) — dengan logo stempel cap perusahaan
+  TIDAK ADA kolom tanda tangan Penyewa
+- Footer: PROFESSIONAL • AMAN • TERPERCAYA
+
+Gaya Desain:
+- Photorealistic, Ultra Detail
+- Medical Corporate Branding
+- Premium Invoice Design
+- Gradien Biru Modern
+- Latar Belakang Putih Bersih
+- Tipografi Profesional
+- Print Ready, Kualitas Tinggi`;
 }
