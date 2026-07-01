@@ -45,11 +45,7 @@
                 <span>Settings</span>
             </a>
         </nav>
-<nav>
-    <a href="index.html" class="active"> <i class="fa fa-home"></i> Dashboard </a>
-    <a href="history.html"> <i class="fa fa-clock"></i> History </a>
-    <!-- ... -->
-</nav>
+
         <div class="sidebar-footer">
             <p>Invoice AI Designer V1</p>
             <p class="brand-tag">by Sewaalkes.com</p>
@@ -89,6 +85,36 @@
                         <input id="phone" type="text" placeholder="No. WhatsApp" value="0812-1234-5678">
                     </div>
                     <textarea id="address" rows="3" placeholder="Alamat Lengkap">Jl. Kesehatan No.10 Bogor</textarea>
+                </div>
+
+                <!-- REKENING & ADMIN -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-credit-card"></i>
+                        <h3>Rekening & Admin</h3>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="input-group">
+                            <label>No. Rekening BCA</label>
+                            <input id="bankBca" type="text" placeholder="No. Rekening BCA" value="1234 5678 9012 3456">
+                        </div>
+                        <div class="input-group">
+                            <label>Atas Nama BCA</label>
+                            <input id="bankBcaName" type="text" placeholder="Atas Nama" value="Sewaalkes.com">
+                        </div>
+                        <div class="input-group">
+                            <label>No. Rekening BSI</label>
+                            <input id="bankBsi" type="text" placeholder="No. Rekening BSI" value="9876 5432 1098 7654">
+                        </div>
+                        <div class="input-group">
+                            <label>Atas Nama BSI</label>
+                            <input id="bankBsiName" type="text" placeholder="Atas Nama" value="Sewaalkes.com">
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-top: 12px;">
+                        <label>Nama Admin Pembuat Invoice</label>
+                        <input id="adminName" type="text" placeholder="Nama Admin" value="Juli">
+                    </div>
                 </div>
 
                 <!-- INVOICE -->
@@ -166,14 +192,24 @@
                     <thead>
                         <tr>
                             <th>Nama Alat</th>
-        <th>Qty</th>
-        <th>Harga</th> <!-- Berubah dari Harga/Hari -->
-        <th>Durasi</th>
-        <th>Subtotal</th>
-        <th>Aksi</th>
+                            <th>Qty</th>
+                            <th>Harga (Rp)</th>
+                            <th>Subtotal (Rp)</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="itemTableBody"></tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="3" style="text-align:right;font-weight:700;color:#1d4ed8;padding:14px 12px;background:#eff6ff;">
+                                <i class="fa fa-sigma" style="margin-right:6px;"></i>TOTAL SEWA
+                            </td>
+                            <td style="font-weight:800;color:#1d4ed8;font-size:15px;background:#eff6ff;padding:14px 12px;" id="totalSewaRow">
+                                Rp 0
+                            </td>
+                            <td style="background:#eff6ff;"></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -203,12 +239,35 @@
                 </div>
             </div>
 
+            <div class="summary-formula">
+                <div class="formula-row">
+                    <span><i class="fa fa-sigma"></i> Total Sewa</span>
+                    <span id="totalSewaLabel">Rp 0</span>
+                </div>
+                <div class="formula-row minus">
+                    <span><i class="fa fa-minus"></i> Diskon</span>
+                    <span id="discountLabel">Rp 0</span>
+                </div>
+                <div class="formula-row plus">
+                    <span><i class="fa fa-plus"></i> Biaya Antar</span>
+                    <span id="deliveryLabel">Rp 0</span>
+                </div>
+                <div class="formula-row plus">
+                    <span><i class="fa fa-plus"></i> Biaya Ambil</span>
+                    <span id="pickupLabel">Rp 0</span>
+                </div>
+                <div class="formula-row minus">
+                    <span><i class="fa fa-minus"></i> DP / Uang Muka</span>
+                    <span id="dpLabel">Rp 0</span>
+                </div>
+            </div>
+
             <div class="summary-box">
                 <div class="summary-label">
                     <i class="fa fa-receipt"></i>
-                    Grand Total
+                    Total Akhir
                 </div>
-                <h2 id="grandTotal">Grand Total : Rp 0</h2>
+                <h2 id="grandTotal">Total Akhir : Rp 0</h2>
             </div>
         </div>
 
